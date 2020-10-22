@@ -242,7 +242,8 @@ abstract class AbstractActivity : AppCompatActivity() {
         replace: Boolean = false,
         addToBackStack: Boolean = true,
         allowStateLoss: Boolean = true,
-        hideProgressBar: Boolean = true
+        hideProgressBar: Boolean = true,
+        animate: Boolean = false
     ) = catch {
         when {
             backStackNames.contains(fragment.TAG) -> {
@@ -252,7 +253,7 @@ abstract class AbstractActivity : AppCompatActivity() {
                     arguments,
                     addToBackStack = addToBackStack,
                     allowStateLoss = allowStateLoss,
-                    animate = true,
+                    animate = animate,
                     hideProgressBar = hideProgressBar
                 )
             }
@@ -263,7 +264,7 @@ abstract class AbstractActivity : AppCompatActivity() {
                         arguments,
                         addToBackStack = addToBackStack,
                         allowStateLoss = allowStateLoss,
-                        animate = true,
+                        animate = animate,
                         hideProgressBar = hideProgressBar
                     )
                 else
@@ -272,7 +273,7 @@ abstract class AbstractActivity : AppCompatActivity() {
                         arguments,
                         addToBackStack = addToBackStack,
                         allowStateLoss = allowStateLoss,
-                        animate = true,
+                        animate = animate,
                         hideProgressBar = hideProgressBar
                     )
             }
