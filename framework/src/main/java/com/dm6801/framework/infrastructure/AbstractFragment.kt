@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.dm6801.framework.ui.clickable

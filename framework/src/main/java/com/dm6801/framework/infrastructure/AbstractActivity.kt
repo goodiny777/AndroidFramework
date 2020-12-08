@@ -348,7 +348,9 @@ abstract class AbstractActivity : AppCompatActivity() {
                 )
                 AnimationType.SLIDE -> setCustomAnimations(
                     R.anim.enter_from_left,
-                    R.anim.exit_to_right
+                    R.anim.exit_to_right,
+                    R.anim.enter_from_right,
+                    R.anim.exit_to_left
                 )
                 else -> return@commit
             }
