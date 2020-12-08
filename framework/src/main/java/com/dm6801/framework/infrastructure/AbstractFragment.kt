@@ -27,7 +27,8 @@ abstract class AbstractFragment : Fragment() {
             replace: Boolean = false,
             addToBackStack: Boolean = true,
             allowStateLoss: Boolean = true,
-            hideProgressBar: Boolean = true
+            hideProgressBar: Boolean = true,
+            animate: AnimationType = AnimationType.FADE
         ) {
             if (clazz == null || !AbstractFragment::class.java.isAssignableFrom(clazz)) return
             val activity = foregroundActivity ?: return
@@ -39,7 +40,8 @@ abstract class AbstractFragment : Fragment() {
                     replace,
                     addToBackStack,
                     allowStateLoss,
-                    hideProgressBar
+                    hideProgressBar,
+                    animate = animate
                 )
             } catch (e: Exception) {
                 e.printStackTrace()
