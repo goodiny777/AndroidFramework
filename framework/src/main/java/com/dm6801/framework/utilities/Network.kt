@@ -6,6 +6,7 @@ import android.net.wifi.WifiManager
 import android.os.Build
 import androidx.core.content.getSystemService
 import com.dm6801.framework.infrastructure.foregroundApplication
+import com.dm6801.framework.ui.getString
 
 object Network {
 
@@ -21,6 +22,14 @@ object Network {
         get() {
             return wifiManager?.connectionInfo?.rssi
         }
+
+    fun throwIfNoNetwork(text: String? = "No internet connection") {
+        if (isConnected) {
+            main { text?.let(::toast) }
+            throw Exception()
+        }
+    }
+
 
     @Suppress("DEPRECATION")
     val isConnected: Boolean

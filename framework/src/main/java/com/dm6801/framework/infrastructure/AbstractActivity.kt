@@ -27,6 +27,10 @@ import com.dm6801.framework.utilities.delay
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
+enum class AnimationType{
+    NONE, FADE, SLIDE
+}
+
 fun showProgressBar(isContent: Boolean = false, isBlocking: Boolean = true) {
     foregroundActivity?.showProgressBar(isContent, isBlocking)
 }
@@ -243,7 +247,7 @@ abstract class AbstractActivity : AppCompatActivity() {
         addToBackStack: Boolean = true,
         allowStateLoss: Boolean = true,
         hideProgressBar: Boolean = true,
-        animate: Boolean = false
+        animate: AnimationType = AnimationType.FADE
     ) = catch {
         when {
             backStackNames.contains(fragment.TAG) -> {
@@ -285,7 +289,7 @@ abstract class AbstractActivity : AppCompatActivity() {
         arguments: Map<String, Any?>? = null,
         addToBackStack: Boolean = true,
         allowStateLoss: Boolean = true,
-        animate: Boolean = true,
+        animate: AnimationType = AnimationType.FADE,
         hideProgressBar: Boolean = true
     ) {
         arguments?.let { backStackArguments[fragment.TAG] = it }
@@ -307,7 +311,7 @@ abstract class AbstractActivity : AppCompatActivity() {
         arguments: Map<String, Any?>? = null,
         addToBackStack: Boolean = true,
         allowStateLoss: Boolean = true,
-        animate: Boolean = true,
+        animate: AnimationType = AnimationType.FADE,
         hideProgressBar: Boolean = true
     ) {
         arguments?.let { backStackArguments[fragment.TAG] = it }
@@ -330,17 +334,27 @@ abstract class AbstractActivity : AppCompatActivity() {
         fragment: Fragment,
         addToBackStack: Boolean,
         allowStateLoss: Boolean,
-        animate: Boolean,
+        animate: AnimationType = AnimationType.FADE,
         hideProgressBar: Boolean,
         action: FragmentTransaction.(Fragment) -> Unit
     ) = catch {
         fragmentManager.commit(allowStateLoss = allowStateLoss) {
-            if (animate) setCustomAnimations(
-                R.anim.fragment_fade_enter,
-                R.anim.fragment_fade_exit,
-                R.anim.fragment_fade_enter,
-                R.anim.fragment_fade_exit
-            )
+            when(animate){
+                AnimationType.FADE -> setCustomAnimations(
+                    R.anim.fragment_fade_enter,
+                    R.anim.fragment_fade_exit,
+                    R.anim.fragment_fade_enter,
+                    R.anim.fragment_fade_exit
+                )
+                AnimationType.SLIDE -> setCustomAnimations(
+                    R.anim.enter_from_right,
+                    R.anim.exit_to_left,
+                    R.anim.enter_from_left,
+                    R.anim.exit_to_right
+                )
+                else -> return@commit
+            }
+
             if (addToBackStack) addToBackStack(fragment.TAG)
             else delay(1_000) {
                 this@AbstractActivity.Log(
