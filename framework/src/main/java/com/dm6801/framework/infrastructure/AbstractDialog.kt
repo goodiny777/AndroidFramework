@@ -128,7 +128,7 @@ abstract class AbstractDialog : Dialog {
     }
 
     private fun inflateView() {
-        if (widthFactor == null || heightFactor == null) {
+        if (widthFactor == null && heightFactor == null) {
             view = LayoutInflater.from(context)
                 .inflate(layout, window?.decorView?.findViewById(android.R.id.content), true)
         } else {

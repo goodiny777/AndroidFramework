@@ -8,13 +8,13 @@ fun JSONObject.toMap(): Map<String, Any?> {
     return keys().asSequence().map { key ->
         var value = get(key as String)
         when {
-            value is String && value.startsWith("{") ->
-                value = JSONObject(value).toMap()
-            value is String && value.startsWith("[") ->
-                value = JSONArray(value).toList()
-        }
-        key to value
-    }.toMap()
+    value is String && value.startsWith("{") ->
+    value = JSONObject(value).toMap()
+    value is String && value.startsWith("[") ->
+    value = JSONArray(value).toList()
+}
+key to value
+}.toMap()
 }
 
 fun JSONArray.toList(): List<Any?> {

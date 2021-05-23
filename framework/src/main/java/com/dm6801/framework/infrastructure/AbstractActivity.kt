@@ -356,10 +356,13 @@ abstract class AbstractActivity : AppCompatActivity() {
             }
 
             if (addToBackStack) addToBackStack(fragment.TAG)
-            else delay(1_000) {
-                this@AbstractActivity.Log(
-                    "fragmentManager: stack=${getFragments().map { it.TAG }}"
-                )
+            else {
+                addToBackStack(null)
+                delay(1_000) {
+                    this@AbstractActivity.Log(
+                        "fragmentManager: stack=${getFragments().map { it.TAG }}"
+                    )
+                }
             }
             catch { action(this, fragment) }
         }
