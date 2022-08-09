@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'maven-publish'
 
 group = 'com.github.dm6801'
 version = '1.0.16'
@@ -56,4 +57,18 @@ dependencies {
     api 'androidx.constraintlayout:constraintlayout:2.0.4'
     api 'androidx.recyclerview:recyclerview:1.2.0'
     api 'androidx.recyclerview:recyclerview-selection:1.2.0-alpha01'
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+
+                groupId = 'com.github.goodiny777'
+                artifactId = 'AndroidFramework'
+                version = '1.0.7'
+            }
+        }
+    }
 }
